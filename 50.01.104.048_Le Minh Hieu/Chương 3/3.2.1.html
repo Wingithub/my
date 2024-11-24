@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Mouse Event Example</title>
+    <style>
+        /* Thiết kế đơn giản để các đối tượng dễ nhìn */
+        #hoverDiv {
+            width: 200px;
+            height: 100px;
+            background-color: lightblue;
+            text-align: center;
+            line-height: 100px;
+            font-size: 20px;
+            border: 2px solid #333;
+            margin: 20px;
+        }
+
+        #image {
+            width: 200px;
+            height: 200px;
+            transition: transform 0.3s ease;
+        }
+
+        #textBox {
+            width: 200px;
+            height: 30px;
+            margin-top: 20px;
+        }
+
+        #output {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Thực hành DOM và Mouse Events</h1>
+
+    <!-- Div hover -->
+    <div id="hoverDiv">Hover Me</div>
+
+    <!-- Hình ảnh -->
+    <img id="image" src="3.jpg" alt="Image">
+
+    <!-- Textbox -->
+    <input type="text" id="textBox" placeholder="Nhập văn bản ở đây">
+
+    <!-- Nút hiển thị ngày giờ -->
+    <button onclick="showDateTime()">Hiển thị ngày giờ</button>
+
+    <!-- Kết quả ngày giờ -->
+    <p id="output"></p>
+
+    <script>
+        
+        var hoverDiv = document.getElementById("hoverDiv");
+        hoverDiv.addEventListener("mouseover", function() {
+            hoverDiv.innerHTML = "Mouse Event";
+        });
+        hoverDiv.addEventListener("mouseout", function() {
+            hoverDiv.innerHTML = "Hover Me";
+        });
+        var image = document.getElementById("image");
+        image.addEventListener("mouseover", function() {
+            image.style.transform = "scale(1.1)";  
+        });
+        image.addEventListener("mouseout", function() {
+            image.style.transform = "scale(1)";  
+        });
+
+        
+        function showDateTime() {
+            var currentDateTime = new Date();
+            var dateTimeString = "Ngày giờ hiện tại: " + currentDateTime.toLocaleString();
+            document.getElementById("output").innerText = dateTimeString;
+        }
+
+        
+        var textBox = document.getElementById("textBox");
+        textBox.addEventListener("blur", function() {
+            textBox.value = textBox.value.toUpperCase();
+        });
+    </script>
+</body>
+</html>

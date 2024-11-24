@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiểm tra năm nhuận</title>
+    <script>
+        // Hàm kiểm tra năm nhuận
+        function kiemTraNamNhuan() {
+            // Lấy giá trị năm từ ô nhập liệu
+            var nam = parseInt(document.getElementById("nam").value);
+
+            // Kiểm tra năm nhuận theo quy tắc
+            if ((nam % 4 === 0 && nam % 100 !== 0) || (nam % 400 === 0)) {
+                document.getElementById("ketQua").innerText = nam + " là năm nhuận.";
+            } else {
+                document.getElementById("ketQua").innerText = nam + " không phải là năm nhuận.";
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Kiểm tra năm nhuận</h1>
+    <p>Nhập vào một năm để kiểm tra xem đó có phải là năm nhuận hay không:</p>
+    
+    <!-- Ô nhập năm -->
+    <input type="number" id="nam" placeholder="Nhập năm" />
+    
+    <!-- Nút kiểm tra -->
+    <button onclick="kiemTraNamNhuan()">Kiểm tra</button>
+    
+    <!-- Kết quả hiển thị -->
+    <p id="ketQua"></p>
+</body>
+</html>

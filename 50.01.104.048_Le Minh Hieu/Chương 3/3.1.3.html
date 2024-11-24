@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tính Năm Âm Lịch</title>
+    <script>
+        function tinhNamAmLich() {
+            // Lấy năm dương lịch từ ô nhập liệu
+            var namDuongLich = parseInt(document.getElementById("namDuongLich").value);
+
+            // Tính Can
+            var can = ["Canh", "Tân", "Nhâm", "Quý", "Giáp", "Ất", "Bính", "Đinh", "Mậu", "Kỷ"];
+            var chi = ["Tý", "Sửu", "Dần", "Mão", "Thìn", "Tỵ", "Ngọ", "Mùi", "Thân", "Dậu", "Tuất", "Hợi"];
+
+            // Tính phần dư để tra Can và Chi
+            var canIndex = namDuongLich % 10;
+            var chiIndex = namDuongLich % 12;
+
+            // Lấy Can và Chi từ bảng
+            var canResult = can[canIndex];
+            var chiResult = chi[chiIndex];
+
+            // Hiển thị kết quả
+            document.getElementById("ketQua").innerText = "Năm âm lịch: " + canResult + " " + chiResult;
+        }
+    </script>
+</head>
+<body>
+    <h1>Tính Năm Âm Lịch</h1>
+    <p>Nhập năm dương lịch để tính năm âm lịch:</p>
+    
+    <!-- Ô nhập năm dương lịch -->
+    <input type="number" id="namDuongLich" placeholder="Nhập năm dương lịch" />
+    
+    <!-- Nút tính năm âm lịch -->
+    <button onclick="tinhNamAmLich()">Tính năm âm lịch</button>
+    
+    <!-- Kết quả hiển thị -->
+    <p id="ketQua"></p>
+</body>
+</html>

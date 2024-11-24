@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ứng Dụng Tính Tiền Bán Hàng</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+            text-align: center;
+        }
+        th, td {
+            padding: 10px;
+        }
+        .form-group {
+            margin: 10px 0;
+        }
+        input[type="number"] {
+            width: 60px;
+            text-align: center;
+        }
+        button {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .total {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Ứng Dụng Tính Tiền Bán Hàng</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Tên Hàng Hoá</th>
+                <th>Số Lượng</th>
+                <th>Đơn Giá ($)</th>
+                <th>Thành Tiền ($)</th>
+            </tr>
+        </thead>
+        <tbody id="danh_sach_san_pham">
+            <tr>
+                <td>1</td>
+                <td>CPU</td>
+                <td><input type="number" id="sl_cpu" min="0" value="0" onchange="tinhTien()"></td>
+                <td>120</td>
+                <td id="tt_cpu">0</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>RAM</td>
+                <td><input type="number" id="sl_ram" min="0" value="0" onchange="tinhTien()"></td>
+                <td>80</td>
+                <td id="tt_ram">0</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>HDD</td>
+                <td><input type="number" id="sl_hdd" min="0" value="0" onchange="tinhTien()"></td>
+                <td>50</td>
+                <td id="tt_hdd">0</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>ROM</td>
+                <td><input type="number" id="sl_rom" min="0" value="0" onchange="tinhTien()"></td>
+                <td>30</td>
+                <td id="tt_rom">0</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="form-group">
+        <label><input type="checkbox" id="vat_checkbox"> Tính thêm VAT (10%)</label>
+    </div>
+
+    <button onclick="tinhTien()">OK</button>
+    <button onclick="resetForm()">Nhập Lại</button>
+
+    <div class="total">
+        <strong>Tổng Cộng: </strong> <span id="tong_cong">0</span> $
+    </div>
+
+    <script>
+        // Hàm tính tiền
+        function tinhTien() {
+            // Lấy số lượng từng sản phẩm
+            const sl_cpu = parseInt(document.getElementById("sl_cpu").value) || 0;
+            const sl_ram = parseInt(document.getElementById("sl_ram").value) || 0;
+            const sl_hdd = parseInt(document.getElementById("sl_hdd").value) || 0;
+            const sl_rom = parseInt(document.getElementById("sl_rom").value) || 0;
+
+            // Đơn giá sản phẩm
+            const gia_cpu = 120;
+            const gia_ram = 80;
+            const gia_hdd = 50;
+            const gia_rom = 30;
+
+            // Tính thành tiền từng sản phẩm
+            const tt_cpu = sl_cpu * gia_cpu;
+            const tt_ram = sl_ram * gia_ram;
+            const tt_hdd = sl_hdd * gia_hdd;
+            const tt_rom = sl_rom * gia_rom;
+
+            // Hiển thị thành tiền từng sản phẩm
+            document.getElementById("tt_cpu").innerText = tt_cpu;
+            document.getElementById("tt_ram").innerText = tt_ram;
+            document.getElementById("tt_hdd").innerText = tt_hdd;
+            document.getElementById("tt_rom").innerText = tt_rom;
+
+            // Tính tổng cộng
+            let tongCong = tt_cpu + tt_ram + tt_hdd + tt_rom;
+
+            // Kiểm tra nếu checkbox VAT được chọn
+            const vatCheckbox = document.getElementById("vat_checkbox");
+            if (vatCheckbox.checked) {
+                tongCong += tongCong * 0.1; // Thêm 10% VAT
+            }
+
+            // Hiển thị tổng cộng
+            document.getElementById("tong_cong").innerText = tongCong.toFixed(2);
+        }
+
+        // Hàm reset form
+        function resetForm() {
+            // Đặt lại số lượng và thành tiền về 0
+            document.getElementById("sl_cpu").value = 0;
+            document.getElementById("sl_ram").value = 0;
+            document.getElementById("sl_hdd").value = 0;
+            document.getElementById("sl_rom").value = 0;
+            document.getElementById("tt_cpu").innerText = 0;
+            document.getElementById("tt_ram").innerText = 0;
+            document.getElementById("tt_hdd").innerText = 0;
+            document.getElementById("tt_rom").innerText = 0;
+
+            // Bỏ chọn VAT
+            document.getElementById("vat_checkbox").checked = false;
+
+            // Đặt lại tổng cộng
+            document.getElementById("tong_cong").innerText = 0;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ứng Dụng Quản Lý Sản Phẩm</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+            text-align: center;
+        }
+        th, td {
+            padding: 10px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        input {
+            padding: 5px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h2>Ứng Dụng Quản Lý Sản Phẩm</h2>
+
+    <div class="form-group">
+        <h3>Thêm Sản Phẩm</h3>
+        <input type="text" id="ten_san_pham" placeholder="Nhập tên sản phẩm">
+        <button onclick="themSanPham()">Thêm</button>
+    </div>
+
+    <div class="form-group">
+        <h3>Sửa Sản Phẩm</h3>
+        <input type="text" id="sua_ten_san_pham" placeholder="Nhập tên sản phẩm mới">
+        <button onclick="suaSanPham()">Sửa</button>
+    </div>
+
+    <h3>Danh Sách Sản Phẩm</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Tên Sản Phẩm</th>
+                <th>Hành Động</th>
+            </tr>
+        </thead>
+        <tbody id="danh_sach_san_pham"></tbody>
+    </table>
+
+    <script>
+        // Mảng chứa danh sách sản phẩm
+        let danhSachSanPham = ["Sản phẩm 1", "Sản phẩm 2", "Sản phẩm 3"];
+        let sanPhamDangSua = -1; // Vị trí sản phẩm đang sửa (-1 nghĩa là không có sản phẩm nào đang sửa)
+
+        // Hàm hiển thị danh sách sản phẩm
+        function hienThiSanPham() {
+            const tableBody = document.getElementById("danh_sach_san_pham");
+            tableBody.innerHTML = ""; // Xóa nội dung cũ
+
+            danhSachSanPham.forEach((sanPham, index) => {
+                const row = `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td onclick="chonSanPham(${index})">${sanPham}</td>
+                        <td>
+                            <button onclick="xoaSanPham(${index})">Xoá</button>
+                        </td>
+                    </tr>
+                `;
+                tableBody.innerHTML += row;
+            });
+        }
+
+        // Hàm thêm sản phẩm
+        function themSanPham() {
+            const tenSanPham = document.getElementById("ten_san_pham").value.trim();
+            if (tenSanPham === "") {
+                alert("Vui lòng nhập tên sản phẩm!");
+                return;
+            }
+            danhSachSanPham.push(tenSanPham);
+            document.getElementById("ten_san_pham").value = ""; // Xóa ô nhập
+            hienThiSanPham();
+        }
+
+        // Hàm chọn sản phẩm để sửa
+        function chonSanPham(index) {
+            sanPhamDangSua = index;
+            document.getElementById("sua_ten_san_pham").value = danhSachSanPham[index];
+        }
+
+        // Hàm sửa sản phẩm
+        function suaSanPham() {
+            const tenMoi = document.getElementById("sua_ten_san_pham").value.trim();
+            if (tenMoi === "") {
+                alert("Vui lòng nhập tên sản phẩm mới!");
+                return;
+            }
+            if (sanPhamDangSua === -1) {
+                alert("Vui lòng chọn sản phẩm cần sửa!");
+                return;
+            }
+            danhSachSanPham[sanPhamDangSua] = tenMoi;
+            sanPhamDangSua = -1; // Reset trạng thái sửa
+            document.getElementById("sua_ten_san_pham").value = ""; // Xóa ô nhập
+            hienThiSanPham();
+        }
+
+        // Hàm xoá sản phẩm
+        function xoaSanPham(index) {
+            if (confirm("Bạn có chắc muốn xoá sản phẩm này?")) {
+                danhSachSanPham.splice(index, 1); // Xoá sản phẩm tại vị trí index
+                hienThiSanPham();
+            }
+        }
+
+        // Gọi hàm hiển thị danh sách sản phẩm ban đầu
+        hienThiSanPham();
+    </script>
+</body>
+</html>
