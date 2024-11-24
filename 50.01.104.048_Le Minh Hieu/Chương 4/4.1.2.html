@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <style>
+        /* Reset mặc định */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-container {
+            width: 350px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .login-container h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .login-container .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .login-container .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .login-container .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .login-container .form-group input:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        .login-container .form-group .error {
+            color: #ff0000;
+            font-size: 12px;
+        }
+
+        .login-container .btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .login-container .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .login-container .forgot-password {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .login-container .forgot-password a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .login-container .forgot-password a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Đăng Nhập</h2>
+        <form id="loginForm">
+            <!-- Tên đăng nhập -->
+            <div class="form-group">
+                <label for="username">Tên đăng nhập:</label>
+                <input type="text" id="username" name="username" placeholder="Nhập tên đăng nhập">
+                <div class="error" id="usernameError"></div>
+            </div>
+
+            <!-- Mật khẩu -->
+            <div class="form-group">
+                <label for="password">Mật khẩu:</label>
+                <input type="password" id="password" name="password" placeholder="Nhập mật khẩu">
+                <div class="error" id="passwordError"></div>
+            </div>
+
+            <!-- Nút đăng nhập -->
+            <button type="submit" class="btn" id="loginButton">Đăng Nhập</button>
+
+            <!-- Quên mật khẩu -->
+            <div class="forgot-password">
+                <a href="#">Quên mật khẩu?</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        const loginButton = document.getElementById('loginButton');
+
+        // Tên đăng nhập và mật khẩu mẫu (giả sử đây là thông tin đúng)
+        const validUsername = "admin";
+        const validPassword = "12345";
+
+        let isLoggedIn = false; // Biến trạng thái đăng nhập
+
+        loginForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Xóa thông báo lỗi cũ
+            document.getElementById('usernameError').textContent = '';
+            document.getElementById('passwordError').textContent = '';
+
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+
+            // Kiểm tra tên đăng nhập và mật khẩu
+            if (username === "" || password === "") {
+                if (username === "") {
+                    document.getElementById('usernameError').textContent = 'Tên đăng nhập không được để trống!';
+                }
+                if (password === "") {
+                    document.getElementById('passwordError').textContent = 'Mật khẩu không được để trống!';
+                }
+            } else if (username === validUsername && password === validPassword) {
+                if (!isLoggedIn) {
+                    // Đăng nhập thành công
+                    alert("Đăng nhập thành công!");
+                    loginButton.textContent = "Đăng Xuất"; // Đổi nút thành "Đăng Xuất"
+                    isLoggedIn = true; // Cập nhật trạng thái
+                } else {
+                    // Đăng xuất
+                    alert("Bạn đã đăng xuất!");
+                    loginButton.textContent = "Đăng Nhập"; // Đổi nút về "Đăng Nhập"
+                    loginForm.reset(); // Reset form
+                    isLoggedIn = false; // Cập nhật trạng thái
+                }
+            } else {
+                // Sai tên đăng nhập hoặc mật khẩu
+                alert("Tên đăng nhập hoặc mật khẩu không đúng!");
+            }
+        });
+    </script>
+</body>
+</html>
